@@ -73,7 +73,7 @@ HTML is made up of special tags which contain information on how to represent th
 
 You can ignore all the boilerplate code for now. The above code snippet shows a `div` element. A div is any unique section on the web page. Inside is `h1` tag which represents a heading, and `p` represents a paragraph . If you save the above code in a file called `index.html`, the result will be as follows:
 
-![HTML](./images/html_1.png)
+![HTML](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/html_1.PNG?raw=true)
 
 There are numerous other tags such as `a` for links, `img` for images, and `button` for buttons.
 
@@ -111,7 +111,7 @@ We must link to this CSS somewhere in our HTML. To do this, we add the following
 
 After all this, your webpage should look like this:
 
-![CSS](./images/css_1.png)
+![CSS](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/css_1.PNG?raw=true)
 
 ### 3. Javascript
 
@@ -138,7 +138,7 @@ We first store the heading and `div` as variables and then say that whenever the
 
 Now, whenever you click the `div`, this should be the output:
 
-![JS](./images/js_1.png)
+![JS](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/js_1.PNG?raw=true)
 
 ---
 
