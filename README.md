@@ -32,6 +32,8 @@ For errors, typos or suggestions, please do not hesitate to [post an issue](http
 
 1. [Introduction](#intro)
 2. [A Web Dev Analogy](#analogy)
+3. [What are frameworks](#frameworks)
+4. [React: The framework that's actually a library](#whats-react)
 
 ---
 
@@ -124,10 +126,10 @@ const section = document.querySelector('.grey-background-section');
 
 const heading = document.querySelector('#heading');
 
-section.onclick = function() {
+section.addEventListener('click', () => {
   console.log('CLICKED');
   heading.textContent = 'Clicked';
-};
+});
 ```
 
 We first store the heading and `div` as variables and then say that whenever the div is clicked, the heading should change. We can include this file into our HTML **after** the `body` tag by adding the following code:
@@ -140,6 +142,30 @@ Now, whenever you click the `div`, this should be the output:
 
 ![JS](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/js_1.PNG?raw=true)
 
+Congratulations, you just did DOM manipulation!
+
 ---
 
-That is the end to our analogy and our brief overview of the basics of web development. Do note that this didn't even cover 1% of front-end development. Do learn more about each of these after the workshop. That being said, let's talk about React.
+That is the end to our analogy and our brief overview of the basics of web development. Do note that this didn't even cover 1% of front-end development. Do learn more about each of these after the workshop. That being said, let's talk about JS frameworks.
+
+<a id="frameworks"></a>
+
+## 2. What are frameworks ????
+
+![Frameworks](./images/frameworks.png)
+
+The purpose of JavaScript frameworks is simple:
+
+> Mapping application state to the DOM
+
+What might not be clear from the previous section is that manipulating the DOM is very error prone, messy, and very hard to scale as the project gets bigger.
+
+Frameworks such as React, Angular, or Vue help developers by making mistakes that could happen by direct DOM manipulation virtually impossible. If you want to understand this a bit more, here's some [further reading](https://medium.com/@mattburgess/javascript-frameworks-why-to-use-them-at-all-8cce2804c092).
+
+Helpful side-effects of these frameworks is that they help reduce code, provide reusable elements, keep code structured and provide a vast array of helpful plug-ins and libraries made by other fans of the framework.
+
+Simply put, using a framework will make it easier for you to make a website than simple JS DOM manipulation.
+
+<a id="whats-react"></a>
+
+## 3. React: The framework that's actually a library
