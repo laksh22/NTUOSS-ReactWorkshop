@@ -33,7 +33,9 @@ For errors, typos or suggestions, please do not hesitate to [post an issue](http
 1. [Introduction](#intro)
 2. [A Web Dev Analogy](#analogy)
 3. [What are frameworks](#frameworks)
-4. [React: The framework that's actually a library](#whats-react)
+4. [Getting Started](#getting-started)
+5. [The Files](#the-files)
+6. [Rendering our first component](#rendering)
 
 ---
 
@@ -152,7 +154,7 @@ That is the end to our analogy and our brief overview of the basics of web devel
 
 ## 2. What are frameworks ????
 
-![Frameworks](./images/frameworks.png)
+![Frameworks](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/frameworks.png?raw=true)
 
 The purpose of JavaScript frameworks is simple:
 
@@ -168,4 +170,55 @@ Simply put, using a framework will make it easier for you to make a website than
 
 <a id="whats-react"></a>
 
-## 3. React: The framework that's actually a library
+## 3. What's React?
+
+![Companies using React](./images/react_users.png)
+
+React is a JavaScript library developed by Facebook and is meant for making user interfaces. It's also the most popular framework right now. These are some of the great things about it:
+
+- Really easy to learn
+- Makes front-end development a lot easier
+- Reusable components (objects) which manage their own state
+- Virtual DOM increases leading speed
+- You can write HTML inside JavaScript
+
+Now let's go over the basics of React.
+
+<a id="getting-started"></a>
+
+## 4. Getting Started
+
+We will be doing most of this workshop on [codesandbox.io](https://www.codesandbox.io). This site will allow us to test out React and see how it runs and works without having to download anything onto our computer for now. Near the end of the workshop, we will go over how to set up React on your own laptop.
+
+Let's go to [codesandbox.io](https://www.codesandbox.io) and sign in using GitHub. Once you do, you will be greeted by this page:
+
+![CodeSandbox Step 1](./images/codesandbox_1.png)
+
+Go ahead and click on `Create Sandbox`. You will now see a vast array of Sandboxes which you can create:
+
+![CodeSandbox Step 2](./images/codesandbox_2.png)
+
+As you can see, React is first since it's the most popular. Click on it to create a React sandbox. If all went correctly, you should be greeted by this terrifying screen:
+
+![CodeSandbox Step 3](./images/codesandbox_3.png)
+
+Don't worry, we will go through everything from scratch. Let's close the `Dependencies` tab for now. Now let's talk about the file structure.
+
+<a id="the-files"></a>
+
+## 5. The Files
+
+![CodeSandbox Step 3](./images/files.png)
+
+As you can see, 4 different files were generated, let's see what each one of them do:
+
+1. package.json: This file contains all the information about the app we are making such as the version numbers, names of dependencies and libraries which we are using, as well as custom commands which we can use.
+2. index.html: React is essentially a single page application framework. This means that no matter what we make, it will be shown to the browser via this file. That being said, we rarely touch this file. Just know that whatever we make will be rendered between the `<div id="root"></div>` tags
+3. index.js: If we don't touch the `index.html` file, how do we make stuff? This is where JSX comes in. JSX combines HTML and JS into a single file. This is then parsed and sent to the index.html to be rendered.
+4. styles.css: This is a file which contains style rules for our entire website.
+
+Most of what you will be doing as a React developer is making many files like index.js and connecting them together while adding CSS to make your site look good. Let's do some coding now!
+
+<a id="rendering"></a>
+
+## 6. Rendering our first component
