@@ -30,6 +30,10 @@ For errors, typos or suggestions, please do not hesitate to [post an issue](http
 
 ## Index
 
+    - [Workshop Details](#workshop-details)
+    - [Questions](#questions)
+    - [Errors](#errors)
+
 - [NTUOSS React Workshop](#ntuoss-react-workshop)
     - [Workshop Details](#workshop-details)
     - [Questions](#questions)
@@ -39,23 +43,20 @@ For errors, typos or suggestions, please do not hesitate to [post an issue](http
   - [2. A Web Dev Analogy](#2-a-web-dev-analogy)
     - [2.1 HTML](#21-html)
     - [2.2 CSS](#22-css)
-    - [3. Javascript](#3-javascript)
-  - [2. What are frameworks ????](#2-what-are-frameworks)
-  - [3. What's React?](#3-whats-react)
-  - [4. Getting Started](#4-getting-started)
-  - [5. The Files](#5-the-files)
-  - [6. Rendering our first component](#6-rendering-our-first-component)
-  - [7. Changing states](#7-changing-states)
+    - [2.3. Javascript](#23-javascript)
+  - [3. What are frameworks ????](#3-what-are-frameworks)
+  - [4. What's React?](#4-whats-react)
+  - [5. Getting Started](#5-getting-started)
+  - [6. The Files](#6-the-files)
+  - [7. Rendering our first component](#7-rendering-our-first-component)
+  - [8. Componentception](#8-componentception)
+  - [9. States](#9-states)
 
 ---
-
-<a id="intro"></a>
 
 ## 1. Introduction
 
 This workshop is mainly concerned with learning the basics of React but since HTML, CSS and JS are important prerequisites, we will first go through a brief overview of them. After that, we will learn about React and see how it can make web development a lot easier.
-
-<a id="analogy"></a>
 
 ## 2. A Web Dev Analogy
 
@@ -127,7 +128,7 @@ After all this, your webpage should look like this:
 
 ![CSS](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/css_1.PNG?raw=true)
 
-### 3. Javascript
+### 2.3. Javascript
 
 Although it's nice to have a roof over our heads, a house would suck to live in if there was no plumbing and no electricity. Similarly, a website isn't very fun if all you can do with it is stare at it. Javascript let's us add some functionality to the website.
 
@@ -160,9 +161,7 @@ Congratulations, you just did DOM manipulation!
 
 That is the end to our analogy and our brief overview of the basics of web development. Do note that this didn't even cover 1% of front-end development. Do learn more about each of these after the workshop. That being said, let's talk about JS frameworks.
 
-<a id="frameworks"></a>
-
-## 2. What are frameworks ????
+## 3. What are frameworks ????
 
 ![Frameworks](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/frameworks.png?raw=true)
 
@@ -178,9 +177,7 @@ Helpful side-effects of these frameworks is that they help reduce code, provide 
 
 Simply put, using a framework will make it easier for you to make a website than simple JS DOM manipulation.
 
-<a id="whats-react"></a>
-
-## 3. What's React?
+## 4. What's React?
 
 ![Companies using React](https://github.com/laksh22/NTUOSS-ReactWorkshop/raw/master/images/react_users.png)
 
@@ -194,9 +191,7 @@ React is a JavaScript library developed by Facebook and is meant for making user
 
 Now let's go over the basics of React.
 
-<a id="getting-started"></a>
-
-## 4. Getting Started
+## 5. Getting Started
 
 We will be doing most of this workshop on [codesandbox.io](https://www.codesandbox.io). This site will allow us to test out React and see how it runs and works without having to download anything onto our computer for now. Near the end of the workshop, we will go over how to set up React on your own laptop.
 
@@ -214,9 +209,7 @@ As you can see, React is first since it's the most popular. Click on it to creat
 
 Don't worry, we will go through everything from scratch. Let's close the `Dependencies` tab to avoid any confusion. Now let's talk about the file structure.
 
-<a id="the-files"></a>
-
-## 5. The Files
+## 6. The Files
 
 ![File structure](./images/files.png)
 
@@ -229,25 +222,24 @@ As you can see, 4 different files were generated, let's see what each one of the
 
 Most of what you will be doing as a React developer is making many files like index.js and connecting them together while adding CSS to make your site look good. Let's do some coding now!
 
-<a id="rendering"></a>
-
-## 6. Rendering our first component
+## 7. Rendering our first component
 
 Let's delete everything from `index.js` and write everything from scratch. We will now be greeted by a blank screen.
 
-To use react, we first need to import it. We do this by writing:   
+To use react, we first need to import it. We do this by writing:
 
 `import React from "react";`
 
-This library just deals with the logic behind react but has no information about how to render anything onto the browser. To do this we must import `ReactDOM`:   
+This library just deals with the logic behind react but has no information about how to render anything onto the browser. To do this we must import `ReactDOM`:
 
 `import ReactDOM from "react-dom";`
 
-We will create our first component now. React components can either be made using classes or functions. We will begin by making a class based component. We create a class named `App` which will inherit properties from `React.Component`:    
+We will create our first component now. React components can either be made using classes or functions. We will begin by making a class based component. We create a class named `App` which will inherit properties from `React.Component`:
 
 `class App extends React.Component {}`
 
-Inside this, we need to initialise the `render()` function which will control the elements inside the component. This is where we basically put all of our HTML. The class should now look like this: 
+Inside this, we need to initialise the `render()` function which will control the elements inside the component. This is where we basically put all of our HTML. The class should now look like this:
+
 ```
 class App extends React.Component {
   render() {}
@@ -255,6 +247,7 @@ class App extends React.Component {
 ```
 
 Inside the render function, we need to return the HTML which we want to render:
+
 ```
 class App extends React.Component {
   render() {
@@ -266,7 +259,7 @@ class App extends React.Component {
 }
 ```
 
-Now that our component is created, we need to render this. To do this, we first need to specify __where__ we want to render it. Outside the class, we add the following line to find the `root` of the webpage:
+Now that our component is created, we need to render this. To do this, we first need to specify **where** we want to render it. Outside the class, we add the following line to find the `root` of the webpage:
 
 `const rootElement = document.getElementById("root");`
 
@@ -301,8 +294,109 @@ And you should see the following being rendered:
 
 ![First React Component](./images/rendering_1.png)
 
-Congratulations! You just rendered your first React component. Let's start building the final product now and learn about states and props.
+Congratulations! You just rendered your first React component. Let's start building the final product now and learn more about components.
 
-<a id="states"></a>
+## 8. Componentception
 
-## 7. Changing states
+Before we start, let's add some boilerplate CSS which will be needed throughout our website to `styles.css`:
+
+```
+body {
+  background: #cccccc;
+  color: #333333;
+  font-family: "Open Sans", "Lucida Grande", "Lucida Sans Unicode", Arial,
+    Helvetica, Verdana, sans-serif;
+  font-size: 16px;
+  line-height: 1.6em;
+  margin: 0;
+}
+
+.container {
+  width: 70%;
+  margin: auto;
+  overflow: hidden;
+  background: #eeeeee;
+  height: 98vh;
+}
+```
+
+We will now remove everything inside the outermost `div` of our `App` component, and change the div to be: `<div className="container">`. All you should be able to see now is this:
+
+![Background](./images/componentception_1.png)
+
+The great thing about React is that it allows us to make our own custom components and use them as HTML elements. Let's see how this works by making the navbar for our chatting app.
+
+In `src`, make a folder called `components`. Inside that, make a folder called `Navbar` which should now contain file called `Navbar.js` and a file called `styles.css`. It should look like this:
+
+![Component file structure](./images/componentception_2.png)
+
+So, for every new commponent we want to create, we create a folder with the name of the component, which contains a javascript file and the CSS file for that component.
+
+Let's add the following code to `Navbar.js`:
+
+```
+import React from "react";
+
+import "./styles.css";
+
+class Navbar extends React.Component {
+  render() {
+    return (
+      <header className="navbar">
+        <div className="app-name">Telegram</div>
+        <div className="chat-name">
+          <strong>Chat Name</strong>
+        </div>
+      </header>
+    );
+  }
+}
+
+export default Navbar;
+```
+
+Notice how we don't need to use ReactDOM. This is because we won't be rendering this component through this javascript file. The file that imports this component will deal with that. Now let's make the navbar look better by adding the following to `styles.css`:
+
+```
+.navbar {
+  background-color: #5682a3;
+  color: #ffffff;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding-left: 1em;
+  height: 2em;
+}
+
+.app-name {
+  display: flex;
+  width: 30%;
+}
+
+.chat-name {
+  display: flex;
+  width: 70%;
+}
+```
+
+Right now we can't see our component because we haven't rendered it anywhere. Let's import this component into `index.js` and use it there. Add this line to the top of `index.js`:
+
+`import Navbar from "./components/Navbar/Navbar";`
+
+We have imported the component, but how do we use it? Well, React components are similar to self-closing HTML tags. Change the return statement to return the following:
+
+```
+return (
+      <div className="container">
+        <Navbar />
+      </div>
+    );
+```
+
+Now you should see the following:
+
+![Navbar component](./images/componentception_3.png)
+
+Now you know how to make your own componenets and use them within other components! The usefulness will become apparent to you as we begin making the telegram messages. Now let's make some components which we can interact with.
+
+## 9. States
