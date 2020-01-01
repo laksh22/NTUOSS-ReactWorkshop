@@ -30,10 +30,6 @@ For errors, typos or suggestions, please do not hesitate to [post an issue](http
 
 ## Index
 
-    - [Workshop Details](#workshop-details)
-    - [Questions](#questions)
-    - [Errors](#errors)
-
 - [NTUOSS React Workshop](#ntuoss-react-workshop)
     - [Workshop Details](#workshop-details)
     - [Questions](#questions)
@@ -50,7 +46,7 @@ For errors, typos or suggestions, please do not hesitate to [post an issue](http
   - [6. The Files](#6-the-files)
   - [7. Rendering our first component](#7-rendering-our-first-component)
   - [8. Componentception](#8-componentception)
-  - [9. States](#9-states)
+  - [9. Props](#9-props)
 
 ---
 
@@ -317,18 +313,20 @@ body {
   overflow: hidden;
   background: #eeeeee;
   height: 98vh;
+  display: flex;
+  flex-direction: column;
 }
 ```
 
 We will now remove everything inside the outermost `div` of our `App` component, and change the div to be: `<div className="container">`. All you should be able to see now is this:
 
-![Background](./images/componentception_1.png)
+![Background](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/componentception_1.PNG?raw=true)
 
 The great thing about React is that it allows us to make our own custom components and use them as HTML elements. Let's see how this works by making the navbar for our chatting app.
 
 In `src`, make a folder called `components`. Inside that, make a folder called `Navbar` which should now contain file called `Navbar.js` and a file called `styles.css`. It should look like this:
 
-![Component file structure](./images/componentception_2.png)
+![Component file structure](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/componentception_2.PNG?raw=true)
 
 So, for every new commponent we want to create, we create a folder with the name of the component, which contains a javascript file and the CSS file for that component.
 
@@ -395,8 +393,175 @@ return (
 
 Now you should see the following:
 
-![Navbar component](./images/componentception_3.png)
+![Navbar component](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/componentception_3.PNG?raw=true)
 
-Now you know how to make your own componenets and use them within other components! The usefulness will become apparent to you as we begin making the telegram messages. Now let's make some components which we can interact with.
+Now you know how to make your own components and use them within other components! The usefulness will become apparent to you as we begin making the telegram messages. Now let's make some components which we can interact with.
 
-## 9. States
+## 9. Props
+
+Now that we have our navbar, let's show a list of our chats on the left side of the page. To do this, we will create a `ChatList` component. Let's do the same thing we did before which is making a folder with the name of the component and adding in the respective files.
+
+The `ChatList.js` file will have the following content:
+
+```
+import React from "react";
+
+import "./styles.css";
+
+class ChatList extends React.Component {
+  render() {
+    return <div className="chat-list"></div>;
+  }
+}
+
+export default ChatList;
+```
+
+And add the following to the `styles.css`:
+
+```
+.chat-list {
+  width: 33%;
+  background-color: #dcdcdc;
+  height: 98vh;
+}
+```
+
+Now add `<ChatList />` after the navbar inside `App.js`
+
+You should be able to see the grey bar to the left of the screen:
+
+![Chat List](./images/props_1.png)
+
+It looks depressingly empty. Let's try adding some content inside this list! Although we could copy paste the code for the chat tabs multiple times, we can make use of components and save ourselves a lot of time. Let's make another folder for `ChatTab` and make the `ChatTab.js` and `styles.css` folders. Paste this code into `ChatTab.js`:
+
+```
+import React from "react";
+
+import "./styles.css";
+
+class ChatTab extends React.Component {
+  render() {
+    return (
+      <div className="chat-tab">
+        <img
+          src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+          alt="Avatar"
+        />
+        <div className="chat-tab-details">
+          <h4>Chat Name</h4>
+          <p>Latest Message</p>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default ChatTab;
+```
+
+And add the following to the `styles.css`:
+
+```
+.chat-tab {
+  height: 2em;
+  margin: auto;
+  padding: 0.5em;
+  display: flex;
+  line-height: 1em;
+}
+
+.chat-tab h4,
+p {
+  padding: 0;
+  margin: 0;
+}
+
+.chat-tab img {
+  height: 2em;
+  border-radius: 20px;
+  display: flex;
+  width: 20%;
+  margin-right: 10px;
+}
+
+.chat-tab-details {
+  display: flex;
+  width: 80%;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  font-size: 12px;
+}
+```
+
+Now to make this component visible, we can insert it between the `div` inside `ChatList.js`. You should now have something like this:
+
+![First chat list element](./images/props_2.png)
+
+Great! We have a single chat in our list. In the future we will have multiple such tabs, and each tab will have a different chat name and latest message. We can't make a new component for each new chat tab. So what do we do? This is where props come in.
+
+You may have noticed that some HTML tags have attributes such as `<img src="" />` and `<a href=""></a>`. Similarly, our components can take in attributes as `props`.
+
+We will change `<ChatTab />` to `<ChatTab name="TGIFHacks Chat" latestMessage="Dis workshop is lit">`
+
+Now, `name` and `latestMessage` have been passed in as variables to the `ChatTab` component. Inside `ChatTab.js`, we change **Chat Name** to `{this.props.name}` and **Latest Message** to `{this.props.latestMessage}`.
+
+Now you will be able to see that our chat tab is customized!
+
+![First props](./images/props_3.png)
+
+You can now easily make multiple instances of `<ChatTab />`, one below the other and have an entire list of chats:
+
+```
+<div className="chat-list">
+  <ChatTab name="TGIFHacks Chat" latestMessage="Dis workshop is lit" />
+  <ChatTab name="CE2007 Group" latestMessage="I'm dying" />
+  <ChatTab name="MDP Chat" latestMessage="End my suffering" />
+</div>
+```
+
+![Multiple chat tabs](./images/props_4.png)
+
+If we want to avoid copy pasting code, we can make an array of objects outside the return statement and iterate through it:
+
+```
+import React from "react";
+
+import "./styles.css";
+import ChatTab from "../ChatTab/ChatTab";
+
+class ChatList extends React.Component {
+  render() {
+
+    const chats = [
+      {
+        name: "TGIFHacks Chat",
+        latestMessage: "Dis workshop is lit"
+      },
+      {
+        name: "CE2007 Group",
+        latestMessage: "I'm dying"
+      },
+      {
+        name: "MDP Chat",
+        latestMessage: "End my suffering"
+      },
+    ]
+
+    return (
+      <div className="chat-list">
+        {
+          chats.map(chat => {
+            return <ChatTab name={chat.name} latestMessage={chat.latestMessage} />
+          })
+        }
+      </div>
+    );
+  }
+}
+
+export default ChatList;
+```
+
+We can now look at our different chats! But how do we select a chat and open it? And how do we change the chat name in the navbar? Let's learn more about states in react and solve these problems.
