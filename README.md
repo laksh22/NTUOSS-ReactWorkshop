@@ -47,6 +47,8 @@ For errors, typos or suggestions, please do not hesitate to [post an issue](http
   - [7. Rendering our first component](#7-rendering-our-first-component)
   - [8. Componentception](#8-componentception)
   - [9. Props](#9-props)
+  - [10. State](#10-state)
+  - [11. Putting it all together](#11-putting-it-all-together)
 
 ---
 
@@ -207,7 +209,7 @@ Don't worry, we will go through everything from scratch. Let's close the `Depend
 
 ## 6. The Files
 
-![File structure](./images/files.png)
+![File structure](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/files.PNG?raw=true)
 
 As you can see, 4 different files were generated, let's see what each one of them do:
 
@@ -431,7 +433,7 @@ Now add `<ChatList />` after the navbar inside `App.js`
 
 You should be able to see the grey bar to the left of the screen:
 
-![Chat List](./images/props_1.png)
+![Chat List](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/props_1.PNG?raw=true)
 
 It looks depressingly empty. Let's try adding some content inside this list! Although we could copy paste the code for the chat tabs multiple times, we can make use of components and save ourselves a lot of time. Let's make another folder for `ChatTab` and make the `ChatTab.js` and `styles.css` folders. Paste this code into `ChatTab.js`:
 
@@ -497,7 +499,7 @@ p {
 
 Now to make this component visible, we can insert it between the `div` inside `ChatList.js`. You should now have something like this:
 
-![First chat list element](./images/props_2.png)
+![First chat list element](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/props_2.PNG?raw=true)
 
 Great! We have a single chat in our list. In the future we will have multiple such tabs, and each tab will have a different chat name and latest message. We can't make a new component for each new chat tab. So what do we do? This is where props come in.
 
@@ -509,7 +511,7 @@ Now, `name` and `latestMessage` have been passed in as variables to the `ChatTab
 
 Now you will be able to see that our chat tab is customized!
 
-![First props](./images/props_3.png)
+![First props](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/props_3.PNG)
 
 You can now easily make multiple instances of `<ChatTab />`, one below the other and have an entire list of chats:
 
@@ -521,7 +523,7 @@ You can now easily make multiple instances of `<ChatTab />`, one below the other
 </div>
 ```
 
-![Multiple chat tabs](./images/props_4.png)
+![Multiple chat tabs](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/props_4.PNG?raw=true)
 
 If we want to avoid copy pasting code, we can make an array of objects outside the return statement and iterate through it:
 
@@ -565,3 +567,80 @@ export default ChatList;
 ```
 
 We can now look at our different chats! But how do we select a chat and open it? And how do we change the chat name in the navbar? Let's learn more about states in react and solve these problems.
+
+## 10. State
+
+Every react component has attributes of its own (state) as well as attributes that were passed down to it from its parent (props). Using the component's state, you can control the member variables of the component.
+
+When we select a certain chat to open up, we are changing the state of the entire `App` since multiple children of this component will need to know about the chat which we are looking at.
+
+To use the state of a component, we first need to initialise it. We do this by using a constructor. Add the following lines before the `render(){}` function:
+
+```
+constructor(props) {
+    super(props);
+    this.state = {
+      chatName: ""
+    };
+  }
+```
+
+Notice how we take in the `props`. This is because the props are passed down to the component using the constructor. This is done by default if we don't make our own constructor like in the previous section, but if we do make our own constructor, we have to take in the props. `super(props)` is used to call the constructor of the parent component.
+
+Since the `App` will have the chat name as a state, and the navbar needs to display it, we need to pass it down as a prop to the navbar. We do it by changing `<Navbar />` to
+
+```
+<Navbar chatName={this.state.chatName}/>
+```
+
+As you can see, we access the state using `this.state.variable`. We now go into `Navbar.js` and change `<strong>Chat Name</strong>` to:
+
+```
+<strong>{this.props.chatName}</strong>
+```
+
+Now, whenever we click on a chat on the sidebar, we want the chat name of `App` to change. How do we do this? We will need a function in `ChatTab` which will change the state of `App`. Since only a function inside `App` can change the state of `App`, we can create a function here and pass it down to `ChatTab` as a prop! Define the following function in `App.js` after the constructor:
+
+```
+handleChatClick = newChatName => {
+    this.setState({
+      chatName: newChatName
+    });
+  };
+```
+
+Javascript arrow functions can seem confusion at first but let's break it down. `handleClick` is the name of the function. It takes in a parameter called `newChatName`. Inside the curly braces, which is the function body, we use `this.setState({})` to change the `chatName` to the new value. Why don't we just do `this.state.chatName = newChatName`? Because react will re-render the web-page only when we use `setState`.
+
+Now let's pass in this function to `ChatTab` by first changing `<ChatList />` to :
+
+```
+<ChatList onChatSelect={this.handleChatClick} />
+```
+
+Here, we pass in the function as props to the `ChatList` component. The name of the prop will be `onTabClick`.
+
+Inside `ChatList.js`, change `<ChatTab name={chat.name} latestMessage={chat.latestMessage} />` to:
+
+```
+<ChatTab
+  name={chat.name}
+  latestMessage={chat.latestMessage}
+  onClick={this.props.onChatSelect}
+/>
+```
+
+**Finally,** we go into `ChatTab.js` and to the outermost div we add:
+
+```
+onClick={() => this.props.onClick(this.props.name)}
+```
+
+This basically means that whenever the `div` is clicked, it'll take in no parameters. but call the `onClick` function we passed to it as a prop and pass into it the name of the current chat tab.
+
+If you following all the steps, if you refresh your web page, your navbar should start with no chat name and whenever you click on one of the cta tabs, the name in the navbar should change:
+
+![First props](./images/state_1.png)
+
+And that's the basics of react! Let's revise everything we have done once again by implementing the chatting feature.
+
+## 11. Putting it all together
