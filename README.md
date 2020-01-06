@@ -49,6 +49,7 @@ For errors, typos or suggestions, please do not hesitate to [post an issue](http
   - [9. Props](#9-props)
   - [10. State](#10-state)
   - [11. Putting it all together](#11-putting-it-all-together)
+  - [12. Connecting to the back-end](#12-connecting-to-the-back-end)
 
 ---
 
@@ -318,6 +319,11 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.content {
+  display: flex;
+  flex-direction: row;
+}
 ```
 
 We will now remove everything inside the outermost `div` of our `App` component, and change the div to be: `<div className="container">`. All you should be able to see now is this:
@@ -423,13 +429,14 @@ And add the following to the `styles.css`:
 
 ```
 .chat-list {
-  width: 33%;
+  width: 34%;
   background-color: #dcdcdc;
   height: 98vh;
+  border-right: 2px #cdcdcd solid;
 }
 ```
 
-Now add `<ChatList />` after the navbar inside `App.js`
+Now add `<div className="content"></div>` after the navbar inside `App.js` and add `<ChatList />` inside this div.
 
 You should be able to see the grey bar to the left of the screen:
 
@@ -639,8 +646,208 @@ This basically means that whenever the `div` is clicked, it'll take in no parame
 
 If you following all the steps, if you refresh your web page, your navbar should start with no chat name and whenever you click on one of the cta tabs, the name in the navbar should change:
 
-![First props](./images/state_1.png)
+![Changing chat name in navbar](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/state_1.PNG?raw=true)
 
 And that's the basics of react! Let's revise everything we have done once again by implementing the chatting feature.
 
 ## 11. Putting it all together
+
+Let's implement the chatting feature. Let's first make a `ChatColumn` component which will be on the right hand side of the screen and contain the messages as well as the text box. Add the following to `ChatColumn.js`:
+
+```
+import React from "react";
+
+import "./styles.css";
+import TextBox from "../TextBox/TextBox";
+
+class ChatColumn extends React.Component {
+
+  render() {
+    return (
+      <div className="chat-area"></div>
+    );
+  }
+}
+
+export default ChatColumn;
+```
+
+Now, this column will contain the text area where the user will write the message. This list of messages will also be visible inside this component. Since both the children of this component will need access to what the user is currently typing, `message` will need to be a prt of the state of this component and will need to be passed down to the `TextBox` and the `ChatStream`.
+
+So let's make `message` a part of the component's state by adding the following outside the render function:
+
+```
+constructor(props) {
+  super(props);
+  this.state = {
+    message: ""
+  };
+}
+```
+
+We also need to create a function which will change the state whenever the user types something:
+
+```
+handleChange = event => {
+  this.setState({ [event.target.name]: event.target.value });
+};
+```
+
+This function is called when an `event` occurs. The event is passed into the function. The event has information about the `target` object that initiated the event. The target has a name and a value. We will name the target ourselves later on, and the value will be what the user has typed. This function will be passed down as a prop to our next component which is the `TextBox`:
+
+```
+import React from "react";
+
+import "./styles.css";
+
+class TextBox extends React.Component {
+  render() {
+    return (
+      <div className="text-box">
+        <textarea
+          value={this.props.message}
+          onChange={this.props.onChange}
+          placeholder="Write a message..."
+          rows="3"
+          name="message"
+        />
+        <button type="button">SEND</button>
+      </div>
+    );
+  }
+}
+
+export default TextBox;
+```
+
+Notice how the `value` of the `textarea` is being passed down to it as a prop. This basically means that what is shown in the text area will be the state of the `message` value in `ChatColumn` (This is the `event.target.value`). Also notice that whenever the text inside the `textarea` is changed, it's `onChange` function is called which uses the `onChange` function passed to this component as a prop. Also notice that the `name` of the textarea is _message_ (This is `event.target.name`). To style this, add the following CSS code:
+
+```
+.text-box {
+  width: 85%;
+  margin: auto;
+  display: flex;
+  direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 20%;
+}
+
+.text-box button {
+  all: unset;
+  color: #5682a3;
+  font-weight: bold;
+}
+
+textarea {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  overflow: auto;
+  outline: none;
+
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+
+  resize: none;
+
+  background-color: transparent;
+  border-bottom: #5682a3 solid 2px;
+  width: inherit;
+}
+```
+
+Now we will add the `TextBox` component inside the `div` in `ChatColumn` as follows:
+
+```
+<TextBox message={this.state.message} onChange={this.handleChange} />
+```
+
+You should now have a working text area:
+![Text area](./images/chats_1.png)
+
+## 12. Connecting to the back-end
+
+Now let's add the section where all the messages will be displayed. Make a component called `ChatStream` and add the following to `ChatStream.js`:
+
+```
+import React from "react";
+
+import "./styles.css";
+
+class ChatStream extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      messages: []
+    };
+  }
+
+  componentDidMount() {}
+
+  render() {
+    return <div className="chat-stream" />;
+  }
+}
+
+export default ChatStream;
+```
+
+The state of this component contains `messages` which will be an array of messages in this chat. But wait, what the hell is componentDidMount()??? This is something known as a lifecycle method.
+
+Lifecycle methods are predefined methods made by react. Each component is born, lives, and dies 😟. This is known as the component **lifecycle**. Here is a list of all the functions:
+
+![React lifecycle methods](./images/react_lifecycle.png)
+
+There are functions which run on mounting such as the `constructor`. Some run whenever a component is updated such as `getDerivedStateFromProps`, and some run when the component is removed from the webpage such as `componentWillUnmount`.
+
+What we care about is `componentDidMount`. This is a function which is called the first time a component is added to the DOM. Inside this function, we wil be calling our back-end to retrieve our messages.
+
+Now since we don't have a backend **yet**, we will be using a free service called [JSONPlaceholder](https://jsonplaceholder.typicode.com/). This site will allow us to retrieve data as if it is in our back-end.
+
+Now let's get started with **fetching** some data. To do this, we will use the `fetch` API. Add the following inside `componentDidMount`:
+
+```
+fetch("https://jsonplaceholder.typicode.com/comments")
+      .then(res => res.json())
+      .then(
+        result => {
+          console.log(result.slice(0, 10));
+          this.setState({
+            messages: result.slice(0, 10)
+          });
+        },
+        error => {
+          console.log(error);
+        }
+      );
+```
+
+1. We first specify the url from where we want to fetch the data.
+2. We wait for the data to be fetched using the `then` keyword.
+3. After waiting, we get a result which we store inside `res`.
+4. We convert the result we got back into JSON format using `res.json()`.
+5. We again wait for this function to run using `.then()`.
+6. After we get the JSON data, we take in the `result` and any `error`.
+7. If there is a result, we print it out using `console.log()` and set the `message` state to the results we got back (We only take the first 10 elements of the `result` array using `splice`).
+8. If there is an error, we print it out using `console.log()`.
+
+If you now refresh your page and open up the **Console** at the bottom, you should see the following:
+
+![API data](./images/api_data.png)
+
+Congratulations! You just got data from a server for the first time. Now let's convert this array of messages into messages on the web page.
+
+Firstly, add the following to the CSS for `ChatStream`:
+
+```
+.chat-stream {
+  width: 85%;
+  margin: auto;
+  display: flex;
+  direction: column;
+  justify-content: space-between;
+  height: 75%;
+}
+```
