@@ -291,7 +291,7 @@ ReactDOM.render(<App />, rootElement);
 
 And you should see the following being rendered:
 
-![First React Component](./images/rendering_1.png)
+![First React Component](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/rendering_1.PNG?raw=true)
 
 Congratulations! You just rendered your first React component. Let's start building the final product now and learn more about components.
 
@@ -487,10 +487,8 @@ p {
 }
 
 .chat-tab img {
-  height: 2em;
+  width: 2em;
   border-radius: 20px;
-  display: flex;
-  width: 20%;
   margin-right: 10px;
 }
 
@@ -765,7 +763,7 @@ Now we will add the `TextBox` component inside the `div` in `ChatColumn` as foll
 ```
 
 You should now have a working text area:
-![Text area](./images/chats_1.png)
+![Text area](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/chats_1.PNG?raw=true)
 
 ## 12. Connecting to the back-end
 
@@ -798,7 +796,7 @@ The state of this component contains `messages` which will be an array of messag
 
 Lifecycle methods are predefined methods made by react. Each component is born, lives, and dies 😟. This is known as the component **lifecycle**. Here is a list of all the functions:
 
-![React lifecycle methods](./images/react_lifecycle.png)
+![React lifecycle methods](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/react_lifecycle.png?raw=true)
 
 There are functions which run on mounting such as the `constructor`. Some run whenever a component is updated such as `getDerivedStateFromProps`, and some run when the component is removed from the webpage such as `componentWillUnmount`.
 
@@ -835,7 +833,7 @@ fetch("https://jsonplaceholder.typicode.com/comments")
 
 If you now refresh your page and open up the **Console** at the bottom, you should see the following:
 
-![API data](./images/api_data.png)
+![API data](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/api_data.PNG?raw=true)
 
 Congratulations! You just got data from a server for the first time. Now let's convert this array of messages into messages on the web page.
 
@@ -851,3 +849,81 @@ Firstly, add the following to the CSS for `ChatStream`:
   height: 75%;
 }
 ```
+
+Now we need to make a component which will display each message.
+
+Make a component called `Message`:
+```
+import React from "react";
+
+import "./styles.css";
+
+class Message extends React.Component {
+  render() {
+    return (
+      <div className="message">
+        <img
+          src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+          alt="Avatar"
+        />
+        <div className="message-content">
+          <h4>{this.props.user}</h4>
+          <p>{this.props.message}</p>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Message;
+```
+
+`styles.css`:
+```
+.message {
+  height: 2em;
+  padding: 0.5em;
+  display: flex;
+  line-height: 1em;
+}
+
+.message h4,
+p {
+  padding: 0;
+  margin: 0;
+}
+
+.message img {
+  width: 2em;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.message-content {
+  display: flex;
+  width: 80%;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  font-size: 12px;
+}
+```
+
+Notice that we are taking in the username and message as props. Now let's display these messages inside `ChatStream`. Add the following code between the `div` in `ChatStream.js`:
+```
+{this.state.messages.map(message => (
+          <Message
+            message={message.body.slice(0, 7)}
+            user={message.name.slice(0, 20)}
+          />
+        ))}
+```
+
+This might seem complicated but what we are essentially doing is mapping through each message in our `this.state.messages`. For each message object, we are rendering a `Message` component which uses the `body` and `name` property of the message (We use `slice` since the values returned from the API were way too long).
+
+If everything went correctly, you should be able to see the following:
+
+![API data](./images/render_messages.png)
+
+Now let's finish things up by letting you add your own message.
+
