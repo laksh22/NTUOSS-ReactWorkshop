@@ -50,6 +50,7 @@ For errors, typos or suggestions, please do not hesitate to [post an issue](http
   - [10. State](#10-state)
   - [11. Putting it all together](#11-putting-it-all-together)
   - [12. Connecting to the back-end](#12-connecting-to-the-back-end)
+  - [13. Conclusion](#13-conclusion)
 
 ---
 
@@ -775,24 +776,34 @@ import React from "react";
 import "./styles.css";
 
 class ChatStream extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      messages: []
-    };
-  }
-
-  componentDidMount() {}
-
   render() {
-    return <div className="chat-stream" />;
+    return (
+      <div className="chat-stream">
+        <div className="chat-stream-content">
+        </div>
+      </div>
+    );
   }
 }
 
 export default ChatStream;
 ```
 
-The state of this component contains `messages` which will be an array of messages in this chat. But wait, what the hell is componentDidMount()??? This is something known as a lifecycle method.
+Add the following to `ChatColumn.js`:
+```
+constructor(props) {
+  super(props);
+  this.state = {
+    message: "",
+    messages: []
+  };
+}
+
+componentDidMount() {
+}
+```
+
+The state of this component contains `messages` which will be an array of messages in the displayed chat. But wait, what the hell is componentDidMount()??? This is something known as a lifecycle method.
 
 Lifecycle methods are predefined methods made by react. Each component is born, lives, and dies 😟. This is known as the component **lifecycle**. Here is a list of all the functions:
 
@@ -831,6 +842,8 @@ fetch("https://jsonplaceholder.typicode.com/comments")
 7. If there is a result, we print it out using `console.log()` and set the `message` state to the results we got back (We only take the first 10 elements of the `result` array using `splice`).
 8. If there is an error, we print it out using `console.log()`.
 
+Finally, add `<ChatStream messages={this.state.messages}/>` above `<TextBox>` in `ChatColumn.js`.
+
 If you now refresh your page and open up the **Console** at the bottom, you should see the following:
 
 ![API data](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/api_data.PNG?raw=true)
@@ -844,9 +857,31 @@ Firstly, add the following to the CSS for `ChatStream`:
   width: 85%;
   margin: auto;
   display: flex;
-  direction: column;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: start;
   height: 75%;
+}
+
+.chat-stream-content {
+  flex-grow: 1;
+  overflow: auto;
+  min-height: 0;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 ```
 
@@ -913,8 +948,8 @@ Notice that we are taking in the username and message as props. Now let's displa
 ```
 {this.state.messages.map(message => (
           <Message
-            message={message.body.slice(0, 7)}
-            user={message.name.slice(0, 20)}
+            message={message.body.slice(0, 45)}
+            user={message.name.slice(0, 7)}
           />
         ))}
 ```
@@ -923,7 +958,32 @@ This might seem complicated but what we are essentially doing is mapping through
 
 If everything went correctly, you should be able to see the following:
 
-![API data](./images/render_messages.png)
+![Rendered messages](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/render_messages.PNG?raw=true)
 
-Now let's finish things up by letting you add your own message.
+Now let's finish things up by letting you add your own message. Since the `ChatColun` component contains both the message composer and the list of messages, we should define the function for adding a message here. Add the following before the render function:
+```
+handleSendMessage = () => {
+  var newMessage = {
+    body: this.state.message,
+    name: "Username"
+  };
+  this.setState(prevState => ({
+    messages: [...prevState.messages, newMessage],
+    message: ""
+  }));
+};
+```
 
+This function makes a new message object using our current state. It then adds it to the current list of messages and then updates the state. We also set `message` to be empty so that the text area also becomes empty. Let's pass it down to `TextBox` by adding `onSubmit={this.handleSendMessage}`.
+
+Now you can type a message:
+
+![Typing a message](./images/message_stream_1.png)
+
+And after clicking on __SEND__, it'll show up in the list of messages!
+
+![New message added](./images/message_stream_2.png)
+
+Ofcourse, if you refresh, your new message will disappear because we aren't sending the new message to a back-end. Be sure to tune in to our workshop next week to figure out how! So these are the basics of React. Let's see what all we have learnt.
+
+## 13. Conclusion
