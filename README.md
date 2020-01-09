@@ -978,11 +978,11 @@ This function makes a new message object using our current state. It then adds i
 
 Now you can type a message:
 
-![Typing a message](./images/message_stream_1.png)
+![Typing a message](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/message_stream_1.PNG?raw=true)
 
 And after clicking on __SEND__, it'll show up in the list of messages!
 
-![New message added](./images/message_stream_2.png)
+![New message added](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/message_stream_2.PNG?raw=true)
 
 Ofcourse, if you refresh, your new message will disappear because we aren't sending the new message to a back-end. Be sure to tune in to our workshop next week to figure out how! So these are the basics of React. Let's see what all we have learnt.
 
