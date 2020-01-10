@@ -50,7 +50,7 @@ For errors, typos or suggestions, please do not hesitate to [post an issue](http
   - [10. State](#10-state)
   - [11. Putting it all together](#11-putting-it-all-together)
   - [12. Connecting to the back-end](#12-connecting-to-the-back-end)
-  - [13. Conclusion](#13-conclusion)
+  - [13. Summary](#13-summary)
 
 ---
 
@@ -986,4 +986,10 @@ And after clicking on __SEND__, it'll show up in the list of messages!
 
 Ofcourse, if you refresh, your new message will disappear because we aren't sending the new message to a back-end. Be sure to tune in to our workshop next week to figure out how! So these are the basics of React. Let's see what all we have learnt.
 
-## 13. Conclusion
+## 13. Summary
+
+We have learnt the following things about React:
+1. State
+2. Props
+3. Components
+4. Component Lifecycle
