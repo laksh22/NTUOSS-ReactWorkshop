@@ -2,9 +2,11 @@
 
 _by [Lakshyajeet Dwivedee](https://laksh22.github.io) for [NTU Open Source Society](https://github.com/ntuoss)_
 
-This workshop features a brief primer on HTML, CSS, and Javascript, followed by a walkthrough of the basics of React taught by making a clone of [INSERT WEBSITE NAME LATER]. Knowledge of basic programming concepts is useful but not required for this workshop.
+This workshop features a brief primer on HTML, CSS, and Javascript, followed by a walkthrough of the basics of React taught by making Telegram from scratch. Knowledge of basic programming concepts is useful but not required for this workshop.
 
 **Disclaimer:** _This document is only meant to serve as a reference to the attendees of the workshop. Please check out the [official documentation](https://reactjs.org/docs/getting-started.html) for a full, comprehensive understanding of React._
+
+The slides for this workshop can be found [here](https://docs.google.com/presentation/d/1WQSVTRAipOvTB5sFmqQnnohsEboqqLhKcgkromM7ha8/edit?usp=sharing)
 
 ---
 
@@ -511,7 +513,7 @@ Great! We have a single chat in our list. In the future we will have multiple su
 
 You may have noticed that some HTML tags have attributes such as `<img src="" />` and `<a href=""></a>`. Similarly, our components can take in attributes as `props`.
 
-We will change `<ChatTab />` to `<ChatTab name="TGIFHacks Chat" latestMessage="Dis workshop is lit">`
+We will change `<ChatTab />` to `<ChatTab name="TGIFHacks Chat" latestMessage="Eyyyyyyyyyy" />`
 
 Now, `name` and `latestMessage` have been passed in as variables to the `ChatTab` component. Inside `ChatTab.js`, we change **Chat Name** to `{this.props.name}` and **Latest Message** to `{this.props.latestMessage}`.
 
