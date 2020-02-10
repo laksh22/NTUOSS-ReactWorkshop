@@ -673,6 +673,19 @@ class ChatColumn extends React.Component {
 export default ChatColumn;
 ```
 
+The CSS is as follows:
+
+```
+.chat-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 66%;
+  background-color: #dcdcdc;
+  height: 98vh;
+}
+```
+
 Now, this column will contain the text area where the user will write the message. This list of messages will also be visible inside this component. Since both the children of this component will need access to what the user is currently typing, `message` will need to be a prt of the state of this component and will need to be passed down to the `TextBox` and the `ChatStream`.
 
 So let's make `message` a part of the component's state by adding the following outside the render function:
@@ -792,6 +805,7 @@ export default ChatStream;
 ```
 
 Add the following to `ChatColumn.js`:
+
 ```
 constructor(props) {
   super(props);
@@ -890,6 +904,7 @@ Firstly, add the following to the CSS for `ChatStream`:
 Now we need to make a component which will display each message.
 
 Make a component called `Message`:
+
 ```
 import React from "react";
 
@@ -916,6 +931,7 @@ export default Message;
 ```
 
 `styles.css`:
+
 ```
 .message {
   height: 2em;
@@ -947,8 +963,9 @@ p {
 ```
 
 Notice that we are taking in the username and message as props. Now let's display these messages inside `ChatStream`. Add the following code between the `div` in `ChatStream.js`:
+
 ```
-{this.state.messages.map(message => (
+{this.props.messages.map(message => (
           <Message
             message={message.body.slice(0, 45)}
             user={message.name.slice(0, 7)}
@@ -962,7 +979,8 @@ If everything went correctly, you should be able to see the following:
 
 ![Rendered messages](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/render_messages.PNG?raw=true)
 
-Now let's finish things up by letting you add your own message. Since the `ChatColun` component contains both the message composer and the list of messages, we should define the function for adding a message here. Add the following before the render function:
+Now let's finish things up by letting you add your own message. Since the `ChatColumn` component contains both the message composer and the list of messages, we should define the function for adding a message here. Add the following before the render function:
+
 ```
 handleSendMessage = () => {
   var newMessage = {
@@ -976,13 +994,13 @@ handleSendMessage = () => {
 };
 ```
 
-This function makes a new message object using our current state. It then adds it to the current list of messages and then updates the state. We also set `message` to be empty so that the text area also becomes empty. Let's pass it down to `TextBox` by adding `onSubmit={this.handleSendMessage}`.
+This function makes a new message object using our current state. It then adds it to the current list of messages and then updates the state. We also set `message` to be empty so that the text area also becomes empty. Let's pass it down to `TextBox` by adding `onSubmit={this.handleSendMessage}`. We can now integrate it into the TextBox by adding `onClick={this.props.onSubmit}` to the button.
 
 Now you can type a message:
 
 ![Typing a message](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/message_stream_1.PNG?raw=true)
 
-And after clicking on __SEND__, it'll show up in the list of messages!
+And after clicking on **SEND**, it'll show up in the list of messages!
 
 ![New message added](https://github.com/laksh22/NTUOSS-ReactWorkshop/blob/master/images/message_stream_2.PNG?raw=true)
 
@@ -991,6 +1009,7 @@ Ofcourse, if you refresh, your new message will disappear because we aren't send
 ## 13. Summary
 
 We have learnt the following things about React:
+
 1. State
 2. Props
 3. Components
