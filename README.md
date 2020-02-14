@@ -10,14 +10,14 @@ The slides for this workshop can be found [here](https://docs.google.com/present
 
 ---
 
-[INSERT BANNER ART]
+![Workshop Banner](https://scontent.fsin9-2.fna.fbcdn.net/v/t1.0-0/p480x480/84952749_2911693328853016_2855622496961429504_o.jpg?_nc_cat=100&_nc_ohc=P3emBP1L3z4AX-vyFrL&_nc_ht=scontent.fsin9-2.fna&_nc_tp=6&oh=ee33c62a4a44b543fcb9d563ae7c2f9a&oe=5EC8A0F6)
 
-_Artwork by [@hyde-brendan](https://github.com/hyde-brendan)_
+_Artwork by Bryna Goh Jia Rui_
 
 ### Workshop Details
 
-**When:** Friday, 24 January 2020. 6:30PM - 8:30PM  
-**Where:** LT1, Nanyang Technological University  
+**When:** Friday, 14 February 2020. 6:30PM - 8:30PM  
+**Where:** TCT-LT, Nanyang Technological University  
 **Who:** NTU Open Source Society
 
 ### Questions
@@ -1010,7 +1010,10 @@ Ofcourse, if you refresh, your new message will disappear because we aren't send
 
 We have learnt the following things about React:
 
-1. State
-2. Props
-3. Components
-4. Component Lifecycle
+1. Why you should use React
+2. Components
+3. Props
+4. State
+5. React lifecycle methods
+
+We have barely scratched the surface of React. You can find more useful resources and next steps in the slides which are referred to at the top.
